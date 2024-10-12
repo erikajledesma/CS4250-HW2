@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------
 # AUTHOR: Erika Ledesma
-# FILENAME: title of the source file
-# SPECIFICATION: description of the program
+# FILENAME: index_mongo.py
+# SPECIFICATION: Driver application with set menu that allows user to make CRUD operations and output inverted index on the documents database. 
 # FOR: CS 4250- Assignment #2
-# TIME SPENT: how long it took you to complete the assignment
+# TIME SPENT: 5PM-
 #-----------------------------------------------------------*/
 
 from pymongo import MongoClient  # import mongo client to connect
