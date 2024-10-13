@@ -1,6 +1,6 @@
 # CS4250-HW2
 
-## A Python program that connects to a MongoDB database, carries out CRUD operations and can print out an inverted index ordered by term based on user input.
+### A Python program that connects to a MongoDB database, carries out CRUD operations and can print out an inverted index ordered by term based on user input. Testing from terminal is shown below:
 
 ```
 ######### Menu ##############
