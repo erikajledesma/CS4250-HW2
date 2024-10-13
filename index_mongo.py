@@ -1,9 +1,10 @@
 #-------------------------------------------------------------------------
 # AUTHOR: Erika Ledesma
 # FILENAME: index_mongo.py
-# SPECIFICATION: Driver application with set menu that allows user to make CRUD operations and output inverted index on the documents database. 
+# SPECIFICATION: Driver application with set menu that allows user to make CRUD operations and output 
+# inverted index on the documents database. 
 # FOR: CS 4250- Assignment #2
-# TIME SPENT: 5PM-
+# TIME SPENT: 8 HRS
 #-----------------------------------------------------------*/
 
 from pymongo import MongoClient  # import mongo client to connect
@@ -60,15 +61,7 @@ if __name__ == '__main__':
 
               deleteDocument(documents, docId)
 
-          elif (option == "d"):
-              
-              print('current database collection:')
-
-              for d in documents.find():
-                   print(d)
-
-              print('')
-              print('')  
+          elif (option == "d"): 
 
               index = getIndex(documents)
               print(index)
