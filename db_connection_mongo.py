@@ -99,6 +99,19 @@ def getIndex(col):
 
     pipeline = [
         {"$unwind": "$terms"},
-        {"$group": {"_id": "$terms.term", "title": "$title"}, "count": {"$sum": "$terms.count"}},
-        {"$group": {"_id": "$_id.term", }}
+        {"$group": {"_id": {"term": "$terms.term", "title": "$title"}, "count": {"$sum": "$terms.count"}}},
+        {"$group": {"_id": "$_id.term", "documents": {"$push": {"title": "$_id.title", "count": "$count"}}}},
+        {"$project": {"_id": 0, "term": "$_id", "documents": 1}}
     ]
+
+    res = {}
+
+    aggregate = col.aggregate(pipeline)
+
+    for doc in aggregate:
+        doc_list = []
+        for item in doc["documents"]:
+            doc_list.append(f"{item['title']}:{item['count']}")
+        res[doc["term"]] = doc_list
+
+    return res
