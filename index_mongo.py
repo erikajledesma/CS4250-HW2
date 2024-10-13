@@ -7,13 +7,15 @@
 #-----------------------------------------------------------*/
 
 from pymongo import MongoClient  # import mongo client to connect
-from db_connection_mongo_solution import *
+from db_connection_mongo import *
 
 if __name__ == '__main__':
 
     # Connecting to the database
-    db = connectDataBase()
+    client = connectDataBase()
 
+    db = client["database"]
+    
     # Creating a collection
     documents = db["documents"]
 
@@ -59,6 +61,14 @@ if __name__ == '__main__':
               deleteDocument(documents, docId)
 
           elif (option == "d"):
+              
+              print('current database collection:')
+
+              for d in documents.find():
+                   print(d)
+
+              print('')
+              print('')  
 
               index = getIndex(documents)
               print(index)
