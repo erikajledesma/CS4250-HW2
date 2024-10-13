@@ -1,9 +1,9 @@
 #-------------------------------------------------------------------------
 # AUTHOR: Erika Ledesma
 # FILENAME: db_connection_mongo.py
-# SPECIFICATION: Program that defines how actions in index_mongo.py menu are carried out
+# SPECIFICATION: Program that defines how actions in index_mongo.py menu are carried out using Python libraries and functions
 # FOR: CS 4250- Assignment #2
-# TIME SPENT: 5PM-5:17PM, 9:45AM-10:45AM, 11:50AM-12:41PM, 1:40PM-7:13PM, 7:30PM-8:00PM
+# TIME SPENT: 8 HRS
 #-----------------------------------------------------------*/
 
 #IMPORTANT NOTE: DO NOT USE ANY ADVANCED PYTHON LIBRARY TO COMPLETE THIS CODE SUCH AS numpy OR pandas. You have to work here only with
@@ -18,6 +18,7 @@ def connectDataBase():
 
     # Create a database connection object using pymongo
     # --> add your Python code here
+
     return MongoClient("mongodb://localhost:27017/")
 
 def createDocument(col, docId, docText, docTitle, docDate, docCat):
@@ -83,6 +84,8 @@ def deleteDocument(col, docId):
 def updateDocument(col, docId, docText, docTitle, docDate, docCat):
     # Delete the document
     # --> add your Python code here
+
+    #make sure that original id does not get lost
     temp = docId
     deleteDocument(col, docId)
 
@@ -98,8 +101,11 @@ def getIndex(col):
     # --> add your Python code here
 
     pipeline = [
+        #separate terms into their own documents
         {"$unwind": "$terms"},
+        #group documents by term and title and use $sum as an accumulator
         {"$group": {"_id": {"term": "$terms.term", "title": "$title"}, "count": {"$sum": "$terms.count"}}},
+        #set up resultant group where term is mapped to the title of the document and count of the term
         {"$group": {"_id": "$_id.term", "documents": {"$push": {"title": "$_id.title", "count": "$count"}}}},
         {"$project": {"_id": 0, "term": "$_id", "documents": 1}}
     ]
